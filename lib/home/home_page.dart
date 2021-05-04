@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
   static const double _imageSize = 25.0;
 
   late List<Widget> _pageList;
-  final List<String> _appBarTitles = ['订单', '商品', '统计', '店铺'];
+  final List<String> _appBarTitles = ['审批', '资产', '统计', '我的'];
   final PageController _pageController = PageController();
 
   HomeProvider provider = HomeProvider();

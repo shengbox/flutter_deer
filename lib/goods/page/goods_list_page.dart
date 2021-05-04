@@ -2,7 +2,11 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_deer/goods/models/goods_item_entity.dart';
 import 'package:flutter_deer/goods/provider/goods_page_provider.dart';
+import 'package:flutter_deer/net/dio_utils.dart';
+import 'package:flutter_deer/net/http_api.dart';
+import 'package:flutter_deer/order/models/asset_entity.dart';
 import 'package:flutter_deer/routers/fluro_navigator.dart';
+import 'package:flutter_deer/util/log_utils.dart';
 import 'package:flutter_deer/util/toast_utils.dart';
 import 'package:flutter_deer/widgets/my_refresh_list.dart';
 import 'package:flutter_deer/widgets/state_layout.dart';
@@ -67,16 +71,38 @@ class _GoodsListPageState extends State<GoodsListPage>
   ];
 
   Future _onRefresh() async {
-    await Future.delayed(const Duration(seconds: 2), () {
+    await DioUtils.instance.requestNetwork<AssetEntity>(
+        Method.get, HttpApi.asset, queryParameters: <String, dynamic>{
+      'name': widget.index == 0 ? '在用' : '闲置'
+    }, onSuccess: (data) {
+      Log.d(data.toString());
+      final List<GoodsItemEntity> list = [];
+      data?.items!.forEach((element) {
+        if (element.image!.startsWith('//')) {
+          element.image = 'https:' + element.image!;
+        }
+        list.add(GoodsItemEntity(
+            icon: element.image!,
+            title: element.specs! + element.name!,
+            type: element.id! % 3));
+      });
       setState(() {
         _page = 1;
-        _list = List.generate(
-            widget.index == 0 ? 3 : 10,
-            (i) => GoodsItemEntity(
-                icon: _imgList[i % 6], title: '八月十五中秋月饼礼盒', type: i % 3));
+        _list = list;
       });
       _setGoodsCount(_list.length);
     });
+
+    // await Future.delayed(const Duration(seconds: 2), () {
+    //   setState(() {
+    //     _page = 1;
+    //     _list = List.generate(
+    //         widget.index == 0 ? 3 : 10,
+    //         (i) => GoodsItemEntity(
+    //             icon: _imgList[i % 6], title: '八月十五中秋月饼礼盒', type: i % 3));
+    //   });
+    //   _setGoodsCount(_list.length);
+    // });
   }
 
   Future _loadMore() async {

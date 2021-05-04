@@ -161,7 +161,7 @@ class _OrderPageState extends State<OrderPage>
                 const EdgeInsetsDirectional.only(start: 16.0, bottom: 14.0),
             collapseMode: CollapseMode.pin,
             title: Text(
-              '固定资产',
+              '资产审批',
               style: TextStyle(color: ThemeUtils.getIconColor(context)),
             ),
           ),
@@ -199,7 +199,7 @@ class _OrderPageState extends State<OrderPage>
                     ),
                     indicatorColor: Colors.transparent,
                     tabs: const <Widget>[
-                      _TabView(0, '使用中'),
+                      _TabView(0, '待审批'),
                       _TabView(1, '待配送'),
                       _TabView(2, '待完成'),
                       _TabView(3, '已完成'),

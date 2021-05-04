@@ -7,4 +7,6 @@ class HttpApi {
   static const String login = 'rest/user/login';
 
   static const String asset = 'rest/asset';
+
+  static const String me = 'rest/me';
 }

@@ -9,10 +9,8 @@ import 'package:flutter_deer/widgets/my_button.dart';
 
 import 'menu_reveal.dart';
 
-
 /// design/4商品/index.html#artboard1
 class GoodsItem extends StatelessWidget {
-  
   const GoodsItem({
     Key? key,
     required this.item,
@@ -25,7 +23,7 @@ class GoodsItem extends StatelessWidget {
     required this.onTapMenuClose,
     required this.animation,
     required this.heroTag,
-  }): super(key: key);
+  }) : super(key: key);
 
   final GoodsItemEntity item;
   final int index;
@@ -37,7 +35,7 @@ class GoodsItem extends StatelessWidget {
   final VoidCallback onTapMenuClose;
   final Animation<double> animation;
   final String heroTag;
-  
+
   @override
   Widget build(BuildContext context) {
     final Row child = Row(
@@ -55,7 +53,7 @@ class GoodsItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                item.type % 3 != 0 ? '八月十五中秋月饼礼盒' : '八月十五中秋月饼礼盒八月十五中秋月饼礼盒',
+                item.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -115,7 +113,7 @@ class GoodsItem extends StatelessWidget {
         )
       ],
     );
-    
+
     return Stack(
       children: <Widget>[
         // item间的分隔线
@@ -137,19 +135,15 @@ class GoodsItem extends StatelessWidget {
       ],
     );
   }
-  
+
   Widget _buildGoodsMenu(BuildContext context) {
     return Positioned.fill(
       child: AnimatedBuilder(
-        animation: animation,
-        child: _buildGoodsMenuContent(context),
-        builder: (_, Widget? child) {
-          return MenuReveal(
-            revealPercent: animation.value,
-            child: child!
-          );
-        }
-      ),
+          animation: animation,
+          child: _buildGoodsMenuContent(context),
+          builder: (_, Widget? child) {
+            return MenuReveal(revealPercent: animation.value, child: child!);
+          }),
     );
   }
 
@@ -174,7 +168,8 @@ class GoodsItem extends StatelessWidget {
               minHeight: 56.0,
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               textColor: isDark ? Colours.dark_button_text : Colors.white,
-              backgroundColor: isDark ? Colours.dark_app_main : Colours.app_main,
+              backgroundColor:
+                  isDark ? Colours.dark_app_main : Colours.app_main,
               onPressed: onTapEdit,
             ),
             MyButton(
@@ -210,16 +205,15 @@ class GoodsItem extends StatelessWidget {
 }
 
 class _GoodsItemTag extends StatelessWidget {
-  
   const _GoodsItemTag({
     Key? key,
     required this.color,
     required this.text,
-  }): super(key: key);
+  }) : super(key: key);
 
   final Color? color;
   final String text;
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
