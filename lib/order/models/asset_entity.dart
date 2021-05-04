@@ -15,4 +15,7 @@ class AssetItems with JsonConvert<AssetItems> {
   String? assetTypeName;
   String? barcode;
   String? address;
+  String? specs;
+  String? image;
+  String? comment;
 }
