@@ -64,7 +64,7 @@ class GoodsItem extends StatelessWidget {
                     // 默认为占位替换，类似于gone
                     visible: item.type % 3 == 0,
                     child: _GoodsItemTag(
-                      text: '立减',
+                      text: '报修中',
                       color: Theme.of(context).errorColor,
                     ),
                   ),
@@ -105,7 +105,7 @@ class GoodsItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                '特产美味',
+                '计算机',
                 style: Theme.of(context).textTheme.subtitle2,
               ),
             )
