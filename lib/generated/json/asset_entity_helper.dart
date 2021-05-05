@@ -46,6 +46,9 @@ assetItemsFromJson(AssetItems data, Map<String, dynamic> json) {
 	if (json['comment'] != null) {
 		data.comment = json['comment'].toString();
 	}
+	if (json['money'] != null) {
+		data.money = json['money'].toString();
+	}
 	return data;
 }
 
@@ -59,5 +62,6 @@ Map<String, dynamic> assetItemsToJson(AssetItems entity) {
 	data['specs'] = entity.specs;
 	data['image'] = entity.image;
 	data['comment'] = entity.comment;
+	data['money'] = entity.money;
 	return data;
 }

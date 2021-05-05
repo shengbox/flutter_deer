@@ -32,7 +32,8 @@ class _GoodsListPageState extends State<GoodsListPage>
   int _selectIndex = -1;
   late Animation<double> _animation;
   late AnimationController _controller;
-  List<GoodsItemEntity> _list = [];
+  // List<GoodsItemEntity> _list = [];
+  List<AssetItems> _list = [];
   AnimationStatus _animationStatus = AnimationStatus.dismissed;
 
   @override
@@ -88,7 +89,7 @@ class _GoodsListPageState extends State<GoodsListPage>
       });
       setState(() {
         _page = 1;
-        _list = list;
+        _list = data!.items!;
       });
       _setGoodsCount(_list.length);
     });
@@ -106,16 +107,16 @@ class _GoodsListPageState extends State<GoodsListPage>
   }
 
   Future _loadMore() async {
-    await Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _list.addAll(List.generate(
-            10,
-            (i) => GoodsItemEntity(
-                icon: _imgList[i % 6], title: '八月十五中秋月饼礼盒', type: i % 3)));
-        _page++;
-      });
-      _setGoodsCount(_list.length);
-    });
+    // await Future.delayed(const Duration(seconds: 2), () {
+    //   setState(() {
+    //     _list.addAll(List.generate(
+    //         10,
+    //         (i) => GoodsItemEntity(
+    //             icon: _imgList[i % 6], title: '八月十五中秋月饼礼盒', type: i % 3)));
+    //     _page++;
+    //   });
+    //   _setGoodsCount(_list.length);
+    // });
   }
 
   void _setGoodsCount(int count) {
@@ -170,7 +171,8 @@ class _GoodsListPageState extends State<GoodsListPage>
               setState(() {
                 _selectIndex = -1;
               });
-              final String url = EncryptUtil.encodeBase64(_list[index].icon);
+              // final String url = EncryptUtil.encodeBase64(_list[index].icon);
+              final String url = EncryptUtil.encodeBase64(_list[index].image!);
               NavigatorUtils.push(context,
                   '${GoodsRouter.goodsEditPage}?isAdd=false&url=$url&heroTag=$heroTag');
             },

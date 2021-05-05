@@ -1,6 +1,7 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_deer/goods/models/goods_item_entity.dart';
+import 'package:flutter_deer/order/models/asset_entity.dart';
 import 'package:flutter_deer/res/resources.dart';
 import 'package:flutter_deer/util/theme_utils.dart';
 import 'package:flutter_deer/util/other_utils.dart';
@@ -25,7 +26,8 @@ class GoodsItem extends StatelessWidget {
     required this.heroTag,
   }) : super(key: key);
 
-  final GoodsItemEntity item;
+  // final GoodsItemEntity item;
+  final AssetItems item;
   final int index;
   final int selectIndex;
   final VoidCallback onTapMenu;
@@ -44,7 +46,7 @@ class GoodsItem extends StatelessWidget {
         ExcludeSemantics(
           child: Hero(
             tag: heroTag,
-            child: LoadImage(item.icon, width: 72.0, height: 72.0),
+            child: LoadImage(item.image!, width: 72.0, height: 72.0),
           ),
         ),
         Gaps.hGap8,
@@ -53,7 +55,7 @@ class GoodsItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                item.title,
+                item.name!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -62,7 +64,7 @@ class GoodsItem extends StatelessWidget {
                 children: <Widget>[
                   Visibility(
                     // 默认为占位替换，类似于gone
-                    visible: item.type % 3 == 0,
+                    visible: item.id! % 3 == 0,
                     child: _GoodsItemTag(
                       text: '报修中',
                       color: Theme.of(context).errorColor,
@@ -70,7 +72,7 @@ class GoodsItem extends StatelessWidget {
                   ),
                   Opacity(
                     // 修改透明度实现隐藏，类似于invisible
-                    opacity: item.type % 2 != 0 ? 0.0 : 1.0,
+                    opacity: item.id! % 2 != 0 ? 0.0 : 1.0,
                     child: _GoodsItemTag(
                       text: '金币抵扣',
                       color: Theme.of(context).primaryColor,
@@ -79,7 +81,7 @@ class GoodsItem extends StatelessWidget {
                 ],
               ),
               Gaps.vGap16,
-              Text(Utils.formatPrice('20.00', format: MoneyFormat.NORMAL))
+              Text(Utils.formatPrice(item.money!, format: MoneyFormat.NORMAL))
             ],
           ),
         ),
@@ -105,7 +107,7 @@ class GoodsItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                '计算机',
+                item.assetTypeName.nullSafe,
                 style: Theme.of(context).textTheme.subtitle2,
               ),
             )

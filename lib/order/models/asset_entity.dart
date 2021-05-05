@@ -18,4 +18,5 @@ class AssetItems with JsonConvert<AssetItems> {
   String? specs;
   String? image;
   String? comment;
+  String? money;
 }
