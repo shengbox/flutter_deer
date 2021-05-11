@@ -32,14 +32,7 @@ class _GoodsPageState extends State<GoodsPage>
     implements GoodIMvpView {
   final List<String> _sortList = [
     '全部资产',
-    '个人护理',
-    '饮料',
-    '沐浴洗护',
-    '厨房用具',
-    '休闲食品',
-    '生鲜水果',
-    '酒水',
-    '家庭清洁'
+    '个人护理'
   ];
   TabController? _tabController;
   final PageController _pageController = PageController(initialPage: 0);
@@ -109,9 +102,9 @@ class _GoodsPageState extends State<GoodsPage>
             Semantics(
               container: true,
               label: '选择商品类型',
-              child: GestureDetector(
+              child: Consumer<GoodsPageProvider>(
+                builder: (_,b,c) =>  GestureDetector(
                 key: _buttonKey,
-
                 /// 使用Selector避免同provider数据变化导致此处不必要的刷新
                 child: Selector<GoodsPageProvider, int>(
                   selector: (_, provider) => provider.sortIndex,
@@ -141,7 +134,7 @@ class _GoodsPageState extends State<GoodsPage>
                 ),
                 onTap: () => _showSortMenu(),
               ),
-            ),
+            )),
             Gaps.vGap24,
             Container(
               // 隐藏点击效果
