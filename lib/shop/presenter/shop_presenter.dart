@@ -6,19 +6,18 @@ import 'package:flutter_deer/shop/iview/shop_iview.dart';
 import 'package:flutter_deer/shop/models/account_entity.dart';
 import 'package:flutter_deer/util/log_utils.dart';
 
-
 class ShopPagePresenter extends BasePagePresenter<ShopIMvpView> {
-
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (view.isAccessibilityTest) {
         return;
       }
-      
+
       /// 接口请求例子
       /// get请求参数queryParameters  post请求参数params
-      asyncRequestNetwork<AccountEntity>(Method.get,
+      asyncRequestNetwork<AccountEntity>(
+        Method.get,
         url: HttpApi.users,
         onSuccess: (data) {
           view.setUser(data);
@@ -26,10 +25,11 @@ class ShopPagePresenter extends BasePagePresenter<ShopIMvpView> {
       );
     });
   }
- 
+
   void testListData() {
     /// 测试返回List类型数据解析
-    asyncRequestNetwork<List<CityEntity>>(Method.get,
+    asyncRequestNetwork<List<CityEntity>>(
+      Method.get,
       url: HttpApi.subscriptions,
       onSuccess: (data) {
         data?.forEach((element) {

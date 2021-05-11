@@ -4,14 +4,6 @@ import 'package:flutter_deer/goods/models/asset_options_entity.dart';
 class GoodsPageProvider extends ChangeNotifier {
   List<String> _typeList = [
     '全部资产',
-    '个人护理',
-    '饮料',
-    '沐浴洗护',
-    '厨房用具',
-    '休闲食品',
-    '生鲜水果',
-    '酒水',
-    '家庭清洁'
   ];
 
   AssetOptionsEntity? _option;
@@ -49,8 +41,12 @@ class GoodsPageProvider extends ChangeNotifier {
   }
 
   void setAssetOptions(AssetOptionsEntity? options) {
-    _option = options;
-    _typeList = options!.assetTypeTree!.map((e) => e.title!).toList();
-    notifyListeners();
+    if (options!.assetTypeTree != null) {
+      _typeList.clear();
+      _typeList.add('全部资产');
+      _typeList.addAll(options.assetTypeTree!.map((e) => e.title!).toList());
+      _option = options;
+      notifyListeners();
+    }
   }
 }

@@ -118,7 +118,7 @@ class _GoodsPageState extends State<GoodsPage>
                       children: <Widget>[
                         Gaps.hGap16,
                         Text(
-                          _sortList[sortIndex],
+                          provider.typeList[sortIndex],
                           style: TextStyles.textBold24,
                         ),
                         Gaps.hGap8,

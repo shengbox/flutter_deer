@@ -32,6 +32,7 @@ class _GoodsListPageState extends State<GoodsListPage>
   int _selectIndex = -1;
   late Animation<double> _animation;
   late AnimationController _controller;
+
   // List<GoodsItemEntity> _list = [];
   List<AssetItems> _list = [];
   AnimationStatus _animationStatus = AnimationStatus.dismissed;
@@ -62,15 +63,6 @@ class _GoodsListPageState extends State<GoodsListPage>
     super.dispose();
   }
 
-  final List<String> _imgList = [
-    'https://fams.oss-cn-hangzhou.aliyuncs.com/img/202004/1587283288866.png',
-    'https://xxx', // 故意使用一张无效链接，触发默认显示图片
-    'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1762976310,1236462418&fm=26&gp=0.jpg',
-    'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3659255919,3211745976&fm=26&gp=0.jpg',
-    'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2085939314,235211629&fm=26&gp=0.jpg',
-    'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2441563887,1184810091&fm=26&gp=0.jpg'
-  ];
-
   Future _onRefresh() async {
     await DioUtils.instance.requestNetwork<AssetEntity>(
         Method.get, HttpApi.asset, queryParameters: <String, dynamic>{
@@ -79,7 +71,7 @@ class _GoodsListPageState extends State<GoodsListPage>
       final List<GoodsItemEntity> list = [];
       data?.items!.forEach((element) {
         if (element.image!.startsWith('//')) {
-          element.image = 'https:' + element.image!;
+          element.image = 'https:${element.image}';
         }
         list.add(GoodsItemEntity(
             icon: element.image!,

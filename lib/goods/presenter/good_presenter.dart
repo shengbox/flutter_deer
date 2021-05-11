@@ -13,6 +13,10 @@ class GoodPagePresenter extends BasePagePresenter<GoodIMvpView> {
       asyncRequestNetwork<AssetOptionsEntity>(
         Method.get,
         url: HttpApi.assetOptions,
+        queryParameters: <String, dynamic>{
+          'contains':
+              'dept_tree,areas,employees,accounts,companies,sources,asset_type_tree,specs_tree'
+        },
         onSuccess: (data) {
           view.setAssetOptions(data);
         },
