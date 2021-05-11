@@ -76,7 +76,6 @@ class _GoodsListPageState extends State<GoodsListPage>
         Method.get, HttpApi.asset, queryParameters: <String, dynamic>{
       'name': widget.index == 0 ? '在用' : '闲置'
     }, onSuccess: (data) {
-      Log.d(data.toString());
       final List<GoodsItemEntity> list = [];
       data?.items!.forEach((element) {
         if (element.image!.startsWith('//')) {

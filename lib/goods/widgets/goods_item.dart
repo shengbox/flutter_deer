@@ -55,7 +55,7 @@ class GoodsItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                item.name!,
+                '${item.name.nullSafe} (${item.barcode.nullSafe})',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -66,7 +66,7 @@ class GoodsItem extends StatelessWidget {
                     // 默认为占位替换，类似于gone
                     visible: item.id! % 3 == 0,
                     child: _GoodsItemTag(
-                      text: '报修中',
+                      text: item.status.nullSafe,
                       color: Theme.of(context).errorColor,
                     ),
                   ),
@@ -74,7 +74,7 @@ class GoodsItem extends StatelessWidget {
                     // 修改透明度实现隐藏，类似于invisible
                     opacity: item.id! % 2 != 0 ? 0.0 : 1.0,
                     child: _GoodsItemTag(
-                      text: '金币抵扣',
+                      text: item.status.nullSafe,
                       color: Theme.of(context).primaryColor,
                     ),
                   )

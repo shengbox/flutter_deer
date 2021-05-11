@@ -5,6 +5,7 @@ import 'package:flutter_deer/order/models/search_entity.dart';
 import 'package:flutter_deer/order/iview/order_search_iview.dart';
 import 'package:flutter_deer/order/presenter/order_search_presenter.dart';
 import 'package:flutter_deer/order/provider/base_list_provider.dart';
+import 'package:flutter_deer/shop/models/account_entity.dart';
 import 'package:flutter_deer/shop/models/user_entity.dart';
 import 'package:flutter_deer/shop/iview/shop_iview.dart';
 import 'package:flutter_deer/shop/presenter/shop_presenter.dart';
@@ -106,8 +107,8 @@ class _OrderSearchPageState extends State<OrderSearchPage> with BasePageMixin<Or
   bool get isAccessibilityTest => false;
 
   @override
-  void setUser(UserEntity? user) {
-    showToast(user?.name ?? '');
+  void setUser(AccountEntity? user) {
+    showToast(user?.user?.username ?? '');
   }
 
 }

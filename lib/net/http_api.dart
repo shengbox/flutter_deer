@@ -10,4 +10,5 @@ class HttpApi {
   static const String asset = 'rest/asset';
 
   static const String me = 'rest/me';
+  static const String assetOptions = '/rest/common/asset-options';
 }

@@ -19,4 +19,7 @@ class AssetItems with JsonConvert<AssetItems> {
   String? image;
   String? comment;
   String? money;
+  String? status;
+  @JSONField(name: 'buy_date')
+  String? buyDate;
 }
