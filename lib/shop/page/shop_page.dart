@@ -100,7 +100,7 @@ class _ShopPageState extends State<ShopPage>
                   children: <Widget>[
                     const SizedBox(width: double.infinity, height: 56.0),
                     Text(
-                      ' ${provider.user?.user?.username}',
+                      ' ${provider.user?.user?.company}',
                       style: TextStyles.textBold24,
                     ),
                     Positioned(
@@ -134,8 +134,10 @@ class _ShopPageState extends State<ShopPage>
                       height: 16.0,
                     ),
                     Gaps.hGap8,
-                    Text('账号:${provider.user?.user?.company}',
-                        style: TextStyles.textSize12)
+                    Consumer<UserProvider>(
+                        builder: (context, cart, child) => Text(
+                            '账号:${provider.user?.user?.username}',
+                            style: TextStyles.textSize12)),
                   ],
                 ),
               ),
