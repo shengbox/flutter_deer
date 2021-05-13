@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_deer/routers/routers.dart';
 import 'package:flutter_deer/shop/models/login_entity.dart';
 import 'package:sp_util/sp_util.dart';
 import 'package:flutter_deer/res/constant.dart';
@@ -90,7 +91,8 @@ class _LoginPageState extends State<LoginPage>
       print(accessToken);
       SpUtil.putString(Constant.accessToken, accessToken);
       SpUtil.putString(Constant.phone, _nameController.text);
-      NavigatorUtils.push(context, StoreRouter.auditPage);
+      // NavigatorUtils.push(context, StoreRouter.auditPage);
+      NavigatorUtils.push(context, Routes.home, clearStack: true);
     }, onError: (code, msg) {
       print(code);
       print(msg);
