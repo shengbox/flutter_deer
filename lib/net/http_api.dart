@@ -11,5 +11,7 @@ class HttpApi {
 
   static const String me = 'rest/me';
   static const String assetOptions = 'rest/common/asset-options';
-  static const String approval = '/rest/approval';
+  static const String approval = 'rest/approval';
+  static const String signUp = 'join';
+  static const String registerSms = 'join/sms';
 }
