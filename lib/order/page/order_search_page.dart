@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deer/mvp/base_page.dart';
 import 'package:flutter_deer/mvp/power_presenter.dart';
+import 'package:flutter_deer/order/models/approval_entity.dart';
 import 'package:flutter_deer/order/models/search_entity.dart';
 import 'package:flutter_deer/order/iview/order_search_iview.dart';
 import 'package:flutter_deer/order/presenter/order_search_presenter.dart';
@@ -17,31 +18,31 @@ import 'package:provider/provider.dart';
 
 /// design/3订单/index.html#artboard8
 class OrderSearchPage extends StatefulWidget {
-
   const OrderSearchPage({Key? key}) : super(key: key);
 
   @override
   _OrderSearchPageState createState() => _OrderSearchPageState();
 }
 
-class _OrderSearchPageState extends State<OrderSearchPage> with BasePageMixin<OrderSearchPage, PowerPresenter> implements OrderSearchIMvpView, ShopIMvpView {
-
+class _OrderSearchPageState extends State<OrderSearchPage>
+    with BasePageMixin<OrderSearchPage, PowerPresenter>
+    implements OrderSearchIMvpView, ShopIMvpView {
   @override
-  BaseListProvider<SearchItems> provider = BaseListProvider<SearchItems>();
-  
+  BaseListProvider<ApprovalItems> provider = BaseListProvider<ApprovalItems>();
+
   late String _keyword;
   int _page = 1;
-  
+
   @override
   void initState() {
     /// 默认为加载中状态，本页面场景默认为空
     provider.setStateTypeNotNotify(StateType.empty);
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<BaseListProvider<SearchItems>>(
+    return ChangeNotifierProvider<BaseListProvider<ApprovalItems>>(
       create: (_) => provider,
       child: Scaffold(
         appBar: SearchBar(
@@ -57,26 +58,25 @@ class _OrderSearchPageState extends State<OrderSearchPage> with BasePageMixin<Or
             _orderSearchPresenter.search(_keyword, _page, true);
           },
         ),
-        body: Consumer<BaseListProvider<SearchItems>>(
-          builder: (_, provider, __) {
-            return DeerListView(
-              key: const Key('order_search_list'),
-              itemCount: provider.list.length,
-              stateType: provider.stateType,
-              onRefresh: _onRefresh,
-              loadMore: _loadMore,
-              itemExtent: 50.0,
-              hasMore: provider.hasMore,
-              itemBuilder: (_, index) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  alignment: Alignment.centerLeft,
-                  child: Text(provider.list[index].name.nullSafe),
-                );
-              },
-            );
-          }
-        ),
+        body: Consumer<BaseListProvider<ApprovalItems>>(
+            builder: (_, provider, __) {
+          return DeerListView(
+            key: const Key('order_search_list'),
+            itemCount: provider.list.length,
+            stateType: provider.stateType,
+            onRefresh: _onRefresh,
+            loadMore: _loadMore,
+            itemExtent: 50.0,
+            hasMore: provider.hasMore,
+            itemBuilder: (_, index) {
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                alignment: Alignment.centerLeft,
+                child: Text(provider.list[index].content.nullSafe),
+              );
+            },
+          );
+        }),
       ),
     );
   }
@@ -99,7 +99,8 @@ class _OrderSearchPageState extends State<OrderSearchPage> with BasePageMixin<Or
     final PowerPresenter powerPresenter = PowerPresenter<dynamic>(this);
     _orderSearchPresenter = OrderSearchPresenter();
     _shopPagePresenter = ShopPagePresenter();
-    powerPresenter.requestPresenter([_orderSearchPresenter, _shopPagePresenter]);
+    powerPresenter
+        .requestPresenter([_orderSearchPresenter, _shopPagePresenter]);
     return powerPresenter;
   }
 
@@ -110,5 +111,4 @@ class _OrderSearchPageState extends State<OrderSearchPage> with BasePageMixin<Or
   void setUser(AccountEntity? user) {
     showToast(user?.user?.username ?? '');
   }
-
 }

@@ -30,10 +30,7 @@ class _GoodsPageState extends State<GoodsPage>
         SingleTickerProviderStateMixin,
         AutomaticKeepAliveClientMixin
     implements GoodIMvpView {
-  final List<String> _sortList = [
-    '全部资产',
-    '个人护理'
-  ];
+  final List<String> _sortList = ['全部资产', '个人护理'];
   TabController? _tabController;
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -100,41 +97,43 @@ class _GoodsPageState extends State<GoodsPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Semantics(
-              container: true,
-              label: '选择商品类型',
-              child: Consumer<GoodsPageProvider>(
-                builder: (_,b,c) =>  GestureDetector(
-                key: _buttonKey,
-                /// 使用Selector避免同provider数据变化导致此处不必要的刷新
-                child: Selector<GoodsPageProvider, int>(
-                  selector: (_, provider) => provider.sortIndex,
+                container: true,
+                label: '选择商品类型',
+                child: Selector<GoodsPageProvider, List<String>>(
+                  selector: (_, provider) => provider.typeList,
+                  builder: (_, b, c) => GestureDetector(
+                    key: _buttonKey,
 
-                  /// 精准判断刷新条件（provider 4.0新属性）
+                    /// 使用Selector避免同provider数据变化导致此处不必要的刷新
+                    child: Selector<GoodsPageProvider, int>(
+                      selector: (_, provider) => provider.sortIndex,
+
+                      /// 精准判断刷新条件（provider 4.0新属性）
 //                  shouldRebuild: (previous, next) => previous != next,
-                  builder: (_, sortIndex, __) {
-                    // 只会触发sortIndex变化的刷新
-                    return Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Gaps.hGap16,
-                        Text(
-                          provider.typeList[sortIndex],
-                          style: TextStyles.textBold24,
-                        ),
-                        Gaps.hGap8,
-                        LoadAssetImage(
-                          'goods/expand',
-                          width: 16.0,
-                          height: 16.0,
-                          color: _iconColor,
-                        )
-                      ],
-                    );
-                  },
-                ),
-                onTap: () => _showSortMenu(),
-              ),
-            )),
+                      builder: (_, sortIndex, __) {
+                        // 只会触发sortIndex变化的刷新
+                        return Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Gaps.hGap16,
+                            Text(
+                              provider.typeList[sortIndex],
+                              style: TextStyles.textBold24,
+                            ),
+                            Gaps.hGap8,
+                            LoadAssetImage(
+                              'goods/expand',
+                              width: 16.0,
+                              height: 16.0,
+                              color: _iconColor,
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                    onTap: () => _showSortMenu(),
+                  ),
+                )),
             Gaps.vGap24,
             Container(
               // 隐藏点击效果
